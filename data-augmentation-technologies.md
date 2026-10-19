@@ -586,9 +586,9 @@ payment_encoded = encoder.fit_transform(orders[["payment_mode"]])
 |---|---|
 | Rule-based generation | Create records using business rules |
 | Statistical sampling | Sample from estimated distributions |
-| SMOTE | Creates synthetic minority-class samples |
-| GANs | Generator creates fake data; discriminator distinguishes real vs fake |
-| VAEs | Learn compressed latent representation and generate new samples |
+| SMOTE (**S**ynthetic **M**inority **O**ver-sampling **TE**chnique) | Creates synthetic minority-class samples |
+| GANs (**G**enerative **A**dversarial **N**etwork) | Generator creates fake data; discriminator distinguishes real vs fake |
+| VAEs (**V**ariational **A**uto**e**ncoder) | Learn compressed latent representation and generate new samples |
 | Diffusion models | Generate data by learning to reverse a noise process |
 | LLM-based generation | Generate realistic text records or conversations |
 
