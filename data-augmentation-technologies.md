@@ -108,6 +108,205 @@ Mumbai -> 1
 - **Writable:** Hadoop’s serialization format for keys/values.
 - **InputSplit:** Logical division of input data for a mapper.
 
+### Note: 
+
+**InputSplit is logical.**
+**HDFS Block is physical.**
+
+Interview-favorite distinction:
+
+```text
+HDFS Block  = Physical storage unit
+
+InputSplit  = Logical processing unit
+```
+
+---
+
+# Complete MapReduce Flow
+
+```text
+Input File
+    │
+    ▼
+InputSplit
+    │
+    ▼
+Mapper
+    │
+    ▼
+Combiner (Optional)
+    │
+    ▼
+Partitioner
+    │
+    ▼
+Shuffle & Sort
+    │
+    ▼
+Reducer
+    │
+    ▼
+Final Output
+```
+
+---
+
+# Word Count Example End-to-End
+
+### Input
+
+```text
+Hello Hadoop
+Hello MapReduce
+Hello Spark
+```
+
+### Mapper Output
+
+```text
+(Hello,1)
+(Hadoop,1)
+(Hello,1)
+(MapReduce,1)
+(Hello,1)
+(Spark,1)
+```
+
+### Combiner Output
+
+```text
+(Hello,3)
+(Hadoop,1)
+(MapReduce,1)
+(Spark,1)
+```
+
+### Partitioner
+
+Determines which reducer receives each key.
+
+Example:
+
+```text
+Hello      -> Reducer 0
+Hadoop     -> Reducer 1
+MapReduce  -> Reducer 0
+Spark      -> Reducer 1
+```
+
+### Shuffle & Sort Output
+
+```text
+Hello     -> [1,1,1]
+Hadoop    -> [1]
+MapReduce -> [1]
+Spark     -> [1]
+```
+
+### Reducer Output
+
+```text
+Hello     -> 3
+Hadoop    -> 1
+MapReduce -> 1
+Spark     -> 1
+```
+
+---
+
+# Visual Representation
+
+```text
+Input File
+--------------------------------
+Hello Hadoop
+Hello MapReduce
+Hello Spark
+--------------------------------
+
+           │
+           ▼
+
+Mapper
+--------------------------------
+(Hello,1)
+(Hadoop,1)
+(Hello,1)
+(MapReduce,1)
+(Hello,1)
+(Spark,1)
+--------------------------------
+
+           │
+           ▼
+
+Combiner (Optional)
+--------------------------------
+(Hello,3)
+(Hadoop,1)
+(MapReduce,1)
+(Spark,1)
+--------------------------------
+
+           │
+           ▼
+
+Partitioner
+--------------------------------
+Assign keys to reducers
+--------------------------------
+
+           │
+           ▼
+
+Shuffle & Sort
+--------------------------------
+Hello     -> [1,1,1]
+Hadoop    -> [1]
+MapReduce -> [1]
+Spark     -> [1]
+--------------------------------
+
+           │
+           ▼
+
+Reducer
+--------------------------------
+Hello     -> 3
+Hadoop    -> 1
+MapReduce -> 1
+Spark     -> 1
+--------------------------------
+```
+
+---
+
+# Common Interview Question
+
+### Q: Which component actually groups all values belonging to the same key?
+
+**Answer:** **Shuffle & Sort Phase**
+
+The Reducer does **not** group the values.
+
+The **Shuffle & Sort** phase:
+
+1. Transfers data from mappers to reducers.
+2. Sorts keys.
+3. Groups values belonging to the same key.
+
+By the time data reaches the Reducer, it is already grouped:
+
+```text
+Hello -> [1,1,1]
+Hadoop -> [1]
+MapReduce -> [1]
+Spark -> [1]
+```
+
+The Reducer simply performs aggregation on these grouped values.
+
 ### Hadoop ecosystem tools
 
 | Tool | Purpose |
