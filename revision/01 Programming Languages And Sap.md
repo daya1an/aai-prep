@@ -351,6 +351,7 @@
   * **Service Document (`/sap/opu/odata/sap/<SERVICE_NAME>/`):** Lists exposed **Entity Sets** (collections).
   * **Service Metadata Document (`$metadata`):** XML (**EDMX** / **CSDL** - Conceptual Schema Definition Language) describing **Entity Types** (structures with key properties), **Entity Sets** (table-like collections), **Associations/Navigation Properties** (relationships), and **Function Imports** (custom operations not fitting CRUD).
 * **OData CRUD Mapping to HTTP Methods & ABAP DPC_EXT Methods:**
+  
 | CRUD Operation | HTTP Method | OData URI Pattern | ABAP Gateway `DPC_EXT` Method Implemented |
 | :--- | :--- | :--- | :--- |
 | **Query (Read List)** | **`GET`** | `/EntitySet` | `<ENTITY>SET_GET_ENTITYSET` |
