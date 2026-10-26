@@ -152,6 +152,7 @@
   * **Isolation** (Concurrent transactions do not interfere) $\rightarrow$ Enforced by **Concurrency Control (2PL - Two-Phase Locking, MVCC - Multi-Version Concurrency Control, Timestamp Ordering)**.
   * **Durability** (Committed changes survive crashes) $\rightarrow$ Enforced by **Write-Ahead Logging (WAL) / Redo Logs**.
 * **ANSI SQL Transaction Isolation Levels:**
+
 | Isolation Level | Dirty Read | Non-Repeatable Read | Phantom Read |
 | :--- | :--- | :--- | :--- |
 | **Read Uncommitted** (Lowest) | Possible | Possible | Possible |
